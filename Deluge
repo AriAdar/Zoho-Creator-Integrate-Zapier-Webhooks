@@ -1,0 +1,24 @@
+// On success
+paramMap = Map();
+paramMap.put("Field1",input.Field1);
+paramMap.put("Field2",input.Field2);
+// If your form contains a Subform 
+subformparamMap = Map();
+	counter = 0;
+	for each  x in SubformName
+	{
+		counter = counter + 1;
+		rowMap = Map();
+		rowMap.put("SubformField1",x.SubformField1);
+		rowMap.put("SubformField2",x.SubformField2);
+		subformparamMap.put(counter,rowMap);
+	}
+	paramMap.put("SubformName",subformparamMap);
+// End Subform 
+
+Zapier = invokeurl
+[
+	url :"https://hooks.zapier.com/hooks/catch/your/webhook/"
+	type :POST
+	parameters:paramMap
+];
